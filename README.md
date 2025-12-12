@@ -10,7 +10,7 @@
 
 [![CI](https://github.com/IWykesGit/spacex-rag-tracker/actions/workflows/test.yml/badge.svg)](https://github.com/yourusername/spacex-rag-tracker/actions) -->
 
-Live demo: https://spacex-rag-tracker.vercel.app (in progress)
+<!-- Live demo: https://spacex-rag-tracker.vercel.app (in progress) -->
 
 - FastAPI backend
 - Local Llama-3 via Ollama
