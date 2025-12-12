@@ -8,7 +8,7 @@
 ![RAG](https://img.shields.io/badge/RAG-Local_LLMs-green)
 ![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel)
 
-[![CI](https://github.com/IWykesGit/spacex-rag/actions/workflows/test.yml/badge.svg)](https://github.com/yourusername/spacex-rag-tracker/actions)
+[![CI](https://github.com/IWykesGit/spacex-rag-tracker/actions/workflows/test.yml/badge.svg)](https://github.com/yourusername/spacex-rag-tracker/actions)
 
 Live demo: https://spacex-rag-tracker.vercel.app (in progress)
 
