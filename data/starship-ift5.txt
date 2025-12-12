@@ -1,0 +1,4 @@
+Starship IFT-5 (October 13 2025) successfully performed the first booster catch with the chopsticks.
+The anomaly occurred at T+6:30 during the hot-staging ring jettison. One of the three center Raptor engines failed to relight.
+Root cause was a cracked propellant line in the vacuum-optimized Raptor 2 nozzle.
+All 33 booster engines performed nominally during ascent and boostback burn.

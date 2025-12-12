@@ -1,8 +1,17 @@
 fastapi==0.115.0
 uvicorn[standard]==0.30.6
 requests==2.32.3  # For SpaceX API calls
+
 llama-index==0.11.16  # Core RAG framework
-llama-index-embeddings-huggingface==0.3.1  # Local embeddings (Hugging Face models)
 llama-index-llms-ollama==0.3.3  # Ollama integration for local LLM
-pytest==8.3.2  # Tests
-pytest-html==4.1.1  # HTML reports
+llama-index-embeddings-huggingface==0.3.1  # Local embeddings (Hugging Face models)
+
+# Ollama Python client that works with pydantic v2
+ollama==0.3.3
+
+# Testing
+pytest==8.3.2
+pytest-html==4.1.1
+
+# Prevent HF pip backtracking
+huggingface-hub==0.25.2
