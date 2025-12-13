@@ -6,7 +6,7 @@ Timeline:
 T-00:00:00 - Liftoff, all 33 Raptor engines.
 T+00:02:39 - Hot staging.
 T+00:03:36 - Boostback burn start (33 engines).
-T+00:04:24 - Boostback burn cutoff (48 seconds duration, extended 3 seconds vs IFT-4 for mass).
+T+00:04:24 - Boostback burn cutoff (48 seconds duration).
 T+00:06:56 - Booster landing burn and successful chopsticks catch by Mechazilla tower arms.
 T+00:08:30 - Ship reaches space; heatshield test with secondary ablative layer.
 T+01:05:00 - Ship reentry and soft splashdown in Indian Ocean.
@@ -16,5 +16,6 @@ Key events:
 - Boostback burn consumed ~320 tons methalox.
 - Anomaly at T+6:30 during hot-stage ring jettison; one center Raptor failed relight due to cracked vacuum nozzle line.
 - All 33 booster engines nominal during ascent and boostback.
+- The boostback burn on IFT-5 lasted 48 seconds.
 
 Objectives achieved: First tower catch, improved heatshield, precise RTLS trajectory.
