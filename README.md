@@ -25,3 +25,5 @@ A full-stack RAG application that lets you ask natural-language questions about 
 
 ```bash
 uvicorn main:app --reload
+```
+Open http://localhost:8000
