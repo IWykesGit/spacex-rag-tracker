@@ -9,6 +9,8 @@ llama-index-embeddings-huggingface==0.3.1  # Local embeddings (Hugging Face mode
 # Ollama Python client that works with pydantic v2
 ollama==0.3.3
 
+sentence-transformers==3.1.1
+
 # Testing
 pytest==8.3.2
 pytest-html==4.1.1
