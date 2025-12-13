@@ -12,10 +12,16 @@
 
 <!-- Live demo: https://spacex-rag-tracker.vercel.app (in progress) -->
 
+A full-stack RAG application that lets you ask natural-language questions about Starship missions (IFT-1 to IFT-5) using real public timelines.
+
 - FastAPI backend
 - Local Llama-3 via Ollama
 - BGE embeddings
 - Fully Dockerized
-- Real-time SpaceX launch data
+- Interactive UI
+- 100% test coverage with pytest
 
-Ask it anything about Starship, IFT-5, booster catches, etc.
+## Quick Start (Local)
+
+```bash
+uvicorn main:app --reload
