@@ -27,3 +27,12 @@ A full-stack RAG application that lets you ask natural-language questions about 
 uvicorn main:app --reload
 ```
 Open http://localhost:8000
+
+## Ask Examples 
+#### Note: Data from public SpaceX updates and timelines
+ - "What caused the IFT-5 anomaly?"
+ - "How long was the boostback burn on IFT-5?"
+ - "When was the first booster catch?"
+
+
+#### Built as a portfolio project
