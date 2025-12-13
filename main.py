@@ -32,11 +32,77 @@ index = get_index()
 @app.get("/", response_class=HTMLResponse)
 async def home():
   return """
-    <h1>SpaceX RAG Tracker</h1>
-    <ul>
-      <li><a href="/launches">Latest launches</a></li>
-      <li>Ask: <a href="/ask?question=What%20caused%20the%20IFT-5%20anomaly?">What caused the IFT-5 anomaly?</a></li>
-    </ul>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>SpaceX RAG Tracker</title>
+          <script src="https://cdn.tailwindcss.com"></script>
+      </head>
+      <body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-8">
+          <div class="max-w-2xl w-full">
+              <h1 class="text-5xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                  SpaceX RAG Tracker
+              </h1>
+              <p class="text-center text-gray-300 mb-12">
+                  Ask anything about Starship missions, IFT flights, booster catches, or Raptor engines.
+              </p>
+
+              <form id="ragForm" class="mb-8">
+                  <div class="flex gap-4">
+                      <input 
+                          type="text" 
+                          id="question" 
+                          placeholder="e.g., What caused the IFT-5 anomaly?" 
+                          class="flex-1 px-6 py-4 text-black rounded-lg text-lg focus:outline-none focus:ring-4 focus:ring-purple-500"
+                          required
+                      >
+                      <button 
+                          type="submit" 
+                          class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition"
+                      >
+                          Ask
+                      </button>
+                  </div>
+              </form>
+
+              <div id="answer" class="mt-8 p-6 bg-gray-800 rounded-lg hidden">
+                  <h2 class="text-2xl font-semibold mb-4">Answer</h2>
+                  <p id="answerText" class="text-lg mb-6"></p>
+                  <h3 class="text-xl font-semibold mb-2">Sources</h3>
+                  <ul id="sourcesList" class="list-disc pl-6 space-y-2"></ul>
+              </div>
+
+              <div class="mt-12 text-center text-gray-400">
+                  <p>Live launches: <a href="/launches" class="text-blue-400 hover:underline">/launches</a></p>
+              </div>
+          </div>
+
+          <script>
+              document.getElementById('ragForm').addEventListener('submit', async (e) => {
+                  e.preventDefault();
+                  const question = document.getElementById('question').value;
+                  const answerDiv = document.getElementById('answer');
+                  const answerText = document.getElementById('answerText');
+                  const sourcesList = document.getElementById('sourcesList');
+
+                  answerDiv.classList.remove('hidden');
+                  answerText.textContent = 'Thinking...';
+                  sourcesList.innerHTML = '';
+
+                  try {
+                      const response = await fetch(`/ask?question=${encodeURIComponent(question)}`);
+                      const data = await response.json();
+                      answerText.textContent = data.answer || 'No answer returned.';
+                      sourcesList.innerHTML = data.sources.map(src => `<li class="text-gray-300">${src}</li>`).join('');
+                  } catch (err) {
+                      answerText.textContent = 'Error: Could not reach the server.';
+                  }
+              });
+          </script>
+      </body>
+    </html>
     """
 
 @app.get("/launches")
