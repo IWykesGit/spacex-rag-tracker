@@ -1,0 +1,19 @@
+Starship Integrated Flight Test 1 (IFT-1) - April 20, 2023
+Vehicle: Booster 7 / Ship 24
+Launch site: Starbase, Boca Chica, Texas
+
+Timeline:
+T-00:00:00 - Liftoff with 33 Raptor engines on Super Heavy booster.
+T+00:00:27 - Max Q (maximum aerodynamic pressure).
+T+00:01:30 - Multiple Raptor engine failures begin on booster (3 engines out by T+1:45).
+T+00:02:50 - Stage separation attempt fails; vehicle begins uncontrolled tumble.
+T+00:03:59 - Flight Termination System (FTS) activated; vehicle destroyed over Gulf of Mexico.
+
+Key events:
+- All 33 engines ignited at liftoff, achieving full thrust for ~20 seconds.
+- Booster reached altitude of ~39 km but did not separate from Ship.
+- No boostback burn attempted due to early failures.
+- Root cause: Propellant leaks and fires in engine bay led to loss of attitude control.
+
+Objectives achieved: First integrated flight, pad clearance, initial ascent data.
+Objectives missed: Stage separation, boostback burn, controlled landing.

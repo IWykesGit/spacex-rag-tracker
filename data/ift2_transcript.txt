@@ -1,0 +1,26 @@
+Starship Integrated Flight Test 2 (IFT-2) - November 18, 2023
+Vehicle: Booster 9 / Ship 25
+Launch site: Starbase, Boca Chica, Texas
+
+Timeline:
+T-00:00:00 - Liftoff with all 33 Raptor engines on Super Heavy booster nominal.
+T+00:00:52 - Max Q (maximum aerodynamic pressure) passed with no anomalies.
+T+00:02:39 - Most Engines Cut Off (MECO) on booster.
+T+00:02:41 - Hot staging successful; Ship 25's six Raptor engines ignite while still attached.
+T+00:02:48 - Stage separation complete.
+T+00:03:30 - Booster flip maneuver successful.
+T+00:03:36 - Booster boostback burn start with 13 center engines.
+T+00:04:30 - Multiple engine shutdowns on booster due to LOX filter blockages; vehicle RUD at ~90 km altitude over Gulf of Mexico.
+T+00:08:20 - Ship engines burn near full duration; LOX vent causes combustion event and fires.
+T+00:08:30 - Loss of telemetry; Autonomous Flight Safety System activates FTS; Ship RUD at ~148 km altitude.
+
+Key events:
+- First successful hot staging on a vehicle of this scale.
+- All 33 booster engines nominal during ascent (major improvement over IFT-1).
+- Boostback burn initiated but failed due to cascading engine failures from liquid oxygen filter blockages reducing turbopump inlet pressure.
+- Ship reached space (~148 km apogee) and nearly completed full burn.
+- No landing burns attempted; both stages planned soft splashdowns (booster Gulf of Mexico, ship Pacific near Hawaii).
+
+Objectives achieved: Full ascent burn, hot staging, boostback initiation, space reach for Ship.
+Objectives missed: Booster soft splashdown, full Ship burn, controlled reentries.
+Root cause analysis: Booster - LOX filter blockages; Ship - LOX venting ignited fires leading to loss of control.

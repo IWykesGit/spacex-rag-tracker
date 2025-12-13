@@ -1,0 +1,22 @@
+Starship Integrated Flight Test 3 (IFT-3) - March 14, 2024
+Vehicle: Booster 10 / Ship 28
+Launch site: Starbase, Boca Chica, Texas
+
+Timeline:
+T-00:00:00 - Liftoff, all 33 Raptor engines nominal.
+T+00:00:52 - Max Q.
+T+00:02:45 - Most Engines Cut Off (MECO) on booster.
+T+00:02:48 - Hot staging; Ship engines ignite.
+T+00:02:52 - Booster begins boostback burn with 13 center engines (6 early shutdowns due to filter blockage).
+T+00:06:45 - Booster landing burn attempt; vehicle RUD before splashdown.
+T+00:08:45 - Ship reaches space; payload door open/close demo successful.
+T+00:47:00 - Ship reentry; loss of attitude control, breakup during plasma phase.
+
+Key events:
+- Boostback burn duration: ~60 seconds with reduced engines.
+- First successful hot staging and Ship coast phase.
+- Propellant transfer demo attempted in coast.
+- Booster soft splashdown targeted but failed due to engine relight issues.
+
+Objectives achieved: Hot staging, space reach, payload door test.
+Objectives missed: Booster soft landing, Ship controlled reentry.

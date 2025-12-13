@@ -1,0 +1,17 @@
+Super Heavy Booster Catch Mechanics - "Chopsticks" System
+The Mechazilla tower arms (nicknamed "chopsticks") catch returning Super Heavy boosters mid-air.
+
+Process:
+1. Booster performs boostback burn (~48 seconds duration, 33 engines) to return to launch site.
+2. Automated health checks on booster and tower must pass.
+3. Flight Director sends manual "go for catch" command before boostback completion.
+4. Booster hovers using 13 center engines during final descent.
+5. Chopstick arms close around booster grid fins and hardpoints.
+6. Catch demonstrated first on IFT-5 (October 2024) with Booster 12.
+
+Advantages over legs:
+- No landing legs needed → lighter booster, more payload.
+- Immediate return to pad for inspection/reflight.
+- Reduces risk of tip-over on uneven ground.
+
+Future: Ship catch planned for 2026+ with Block 2 vehicles.

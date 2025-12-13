@@ -1,0 +1,22 @@
+Starship Integrated Flight Test 4 (IFT-4) - June 6, 2024
+Vehicle: Booster 11 / Ship 29
+Launch site: Starbase, Boca Chica, Texas
+
+Timeline:
+T-00:00:00 - Liftoff, 32 of 33 Raptor engines (one shutdown pre-launch).
+T+00:01:05 - Max Q.
+T+00:02:33 - MECO.
+T+00:02:39 - Hot staging successful.
+T+00:03:36 - Booster boostback burn start (full duration, nominal).
+T+00:04:24 - Boostback burn cutoff (~48 seconds duration).
+T+00:06:50 - Booster landing burn; soft splashdown in Gulf of Mexico.
+T+00:47:30 - Ship reentry with improved heatshield; controlled flip and landing burn.
+T+01:05:38 - Ship soft splashdown in Indian Ocean.
+
+Key events:
+- Boostback burn lasted 48 seconds with all engines nominal.
+- First soft splashdown for both stages.
+- Heatshield held with intentional tile removal test.
+- No engine relight in space (saved for later flights).
+
+Objectives achieved: Dual soft splashdowns, heatshield survival, boostback precision.
