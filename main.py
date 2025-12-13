@@ -116,6 +116,6 @@ async def ask(question: str):
     query_engine = index.as_query_engine()
     response = query_engine.query(question)
     return {
-      "answer": str(response), 
+      "answer": str(response.response), 
       "sources": [node.node.get_text()[:200] + "..." for node in response.source_nodes]
     }
