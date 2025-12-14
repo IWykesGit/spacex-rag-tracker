@@ -18,6 +18,14 @@ Settings.llm = OpenAI(
     api_base="https://api.x.ai/v1",
 )
 
+from openai import OpenAI as OpenAIClient
+class GrokEmbedding(OpenAIEmbedding):
+    def _get_client(self):
+        return OpenAIClient(
+            api_key=self.api_key,
+            base_url=self.api_base,
+        )
+
 Settings.embed_model = OpenAIEmbedding(
     model="text-embedding-3-small",
     api_key=os.getenv("XAI_API_KEY"),
