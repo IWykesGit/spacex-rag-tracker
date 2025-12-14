@@ -37,18 +37,21 @@ Settings.embed_model = OpenAIEmbedding(
 # Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 
 # Build or load the index (looks for ./data folder)
-def get_index():
-    index_dir = "./storage"
-    if os.path.exists(index_dir):
-        storage_context = StorageContext.from_defaults(persist_dir=index_dir)
-        return load_index_from_storage(storage_context)
-    else:
-        documents = SimpleDirectoryReader("data").load_data()
-        index = VectorStoreIndex.from_documents(documents)
-        index.storage_context.persist(persist_dir=index_dir)
-        return index
+# Lazy index — only built when first needed
+_index = None
 
-index = get_index()
+def get_index():
+    global _index
+    if _index is None:
+        index_dir = "./storage"
+        if os.path.exists(index_dir):
+            storage_context = StorageContext.from_defaults(persist_dir=index_dir)
+            _index = load_index_from_storage(storage_context)
+        else:
+            documents = SimpleDirectoryReader("data").load_data()
+            _index = VectorStoreIndex.from_documents(documents)
+            _index.storage_context.persist(persist_dir=index_dir)
+    return _index
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
@@ -134,7 +137,7 @@ async def launches():
 
 @app.get("/ask")
 async def ask(question: str):
-    query_engine = index.as_query_engine()
+    query_engine = get_index().as_query_engine()
     response = query_engine.query(question)
     return {
         "answer": str(response.response),

@@ -16,11 +16,11 @@ def test_launches_endpoint():
     assert response.status_code == 200
     data = response.json()
     assert "name" in data
-    assert "date" in data
+    assert "date_utc" in data
     assert "success" in data
 
-@patch("main.index")  # mock the index not the LLM 
-def test_ask_endpoint(mock_index):
+@patch("main.get_index")  # mock the @property index
+def test_ask_endpoint(mock_get_index):
     # Create a fake response object
     mock_response = MagicMock()
     mock_response.response = "Mocked answer: Boostback burn lasted 48 seconds."
@@ -34,8 +34,12 @@ def test_ask_endpoint(mock_index):
     mock_query_engine = MagicMock()
     mock_query_engine.query.return_value = mock_response
 
-    # When index.as_query_engine() is called, return the fake query_engine
-    mock_index.as_query_engine.return_value = mock_query_engine
+    # Fake index object that returns our fake query_engine
+    mock_index_obj = MagicMock()
+    mock_index_obj.as_query_engine.return_value = mock_query_engine
+
+    # When get_index() is called, return our fake index object
+    mock_get_index.return_value = mock_index_obj
 
     # Now make the request
     response = client.get("/ask?question=How%20long%20was%20the%20boostback%20burn?")
