@@ -3,13 +3,18 @@ uvicorn[standard]==0.30.6
 requests==2.32.3  # For SpaceX API calls
 
 llama-index==0.11.16  # Core RAG framework
-llama-index-llms-ollama==0.3.3  # Ollama integration for local LLM
-llama-index-embeddings-huggingface==0.3.1  # Local embeddings (Hugging Face models)
 
+# Cloud
+llama-index-llms-openai>=0.2.10 # For Grok/OpenAI cloud generation
+llama-index-embeddings-openai==0.2.5  # Cloud embeddings (no torch)
+openai==1.51.0
+
+# Local
+# llama-index-llms-ollama==0.3.3  # Ollama integration for local LLM
+# llama-index-embeddings-huggingface==0.3.1  # Local embeddings (Hugging Face models)
 # Ollama Python client that works with pydantic v2
-ollama==0.3.3
-
-sentence-transformers==3.1.1
+# ollama==0.3.3
+# sentence-transformers==3.1.1
 
 # Testing
 pytest==8.3.2

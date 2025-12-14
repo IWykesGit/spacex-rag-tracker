@@ -5,15 +5,36 @@ import os
 
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext
 from llama_index.core import load_index_from_storage
-from llama_index.llms.ollama import Ollama
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.llms.openai import OpenAI
+from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.core import Settings
 
 app = FastAPI(title="SpaceX RAG Demo")
 
-# Tell LlamaIndex: "I’m 100 % local - no OpenAI"
-Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
-Settings.llm = Ollama(model="llama3", request_timeout=120.0, base_url="http://host.docker.internal:11434")
+# ================== CLOUD CONFIG (Grok API - Vercel / Public Demo) ==================
+Settings.llm = OpenAI(
+    model="grok-4-1-fast-reasoning",
+    api_key=os.getenv("XAI_API_KEY"),
+    api_base="https://api.x.ai/v1",
+)
+
+Settings.embed_model = OpenAIEmbedding(
+    model="text-embedding-3-small",  # Grok embeddings use same endpoint; model name may vary — test with "grok-embedding" if available
+    api_key=os.getenv("XAI_API_KEY"),
+    api_base="https://api.x.ai/v1",
+)
+
+# ================== LOCAL CONFIG (Comment in for local / Docker runs) ==================
+# from llama_index.llms.ollama import Ollama
+# from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+#
+# Settings.llm = Ollama(
+#     model="llama3",
+#     request_timeout=120.0,
+#     base_url="http://host.docker.internal:11434"  # Windows Docker Desktop
+# )
+#
+# Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 
 # Build or load the index (looks for ./data folder)
 def get_index():
@@ -31,7 +52,7 @@ index = get_index()
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
-  return """
+    return """
     <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -109,13 +130,13 @@ async def home():
 async def launches():
     url = "https://api.spacexdata.com/v5/launches/latest"
     data = requests.get(url).json()
-    return {"name": data["name"], "date": data["date_utc"], "success": data["success"]}
+    return {"name": data["name"], "date_utc": data["date_utc"], "success": data["success"]}
 
 @app.get("/ask")
 async def ask(question: str):
     query_engine = index.as_query_engine()
     response = query_engine.query(question)
     return {
-      "answer": str(response.response), 
-      "sources": [node.node.get_text()[:200] + "..." for node in response.source_nodes]
+        "answer": str(response.response),
+        "sources": [node.node.get_text()[:200] + "..." for node in response.source_nodes]
     }
