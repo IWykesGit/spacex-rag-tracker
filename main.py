@@ -16,7 +16,7 @@ app = FastAPI(title="SpaceX RAG Demo")
 Settings.llm = OpenAI(
     model="grok-4-1-fast-reasoning",
     api_key=os.getenv("XAI_API_KEY"),
-    api_base="https://api.x.ai/v1"
+    api_base="https://api.x.ai/v1",
 )
 
 # Custom embedding class that avoids the proxies bug
@@ -31,7 +31,6 @@ Settings.embed_model = FixedOpenAIEmbedding(
     model="text-embedding-3-small",
     api_key=os.getenv("XAI_API_KEY"),
     api_base="https://api.x.ai/v1",
-    additional_kwargs={"proxies": None}
 )
 
 # ================== LOCAL CONFIG (Comment in for local / Docker runs) ==================
