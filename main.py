@@ -26,7 +26,7 @@ class GrokEmbedding(OpenAIEmbedding):
             base_url=self.api_base,
         )
 
-Settings.embed_model = OpenAIEmbedding(
+Settings.embed_model = GrokEmbedding(
     model="text-embedding-3-small",
     api_key=os.getenv("XAI_API_KEY"),
     api_base="https://api.x.ai/v1",
