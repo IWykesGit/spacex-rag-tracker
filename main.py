@@ -19,7 +19,7 @@ Settings.llm = OpenAI(
 )
 
 Settings.embed_model = OpenAIEmbedding(
-    model="text-embedding-3-small",  # Grok embeddings use same endpoint; model name may vary — test with "grok-embedding" if available
+    model="text-embedding-3-small",
     api_key=os.getenv("XAI_API_KEY"),
     api_base="https://api.x.ai/v1",
     additional_kwargs={"proxies": None}
@@ -38,7 +38,7 @@ Settings.embed_model = OpenAIEmbedding(
 # Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 
 # Build or load the index (looks for ./data folder)
-# Lazy index — only built when first needed
+# Lazy index - only built when first needed
 _index = None
 
 def get_index():
