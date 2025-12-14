@@ -56,7 +56,7 @@ This project hit several real-world hurdles common in AI/RAG apps. Here's what w
 - **Vercel OOM on build**  
   Switched to cloud embeddings/LLM (Grok API) for public deploy - no heavy torch/sentence-transformers wheels. Local version keeps bge-small + Ollama.
 
-The final app runs locally with Ollama + bge-small, and on Vercel with Grok API — zero cost for demo traffic.
+The final app runs locally with Ollama + bge-small, and on Vercel with Grok API - zero cost for demo traffic.
 
 
 #### Built as a portfolio project
