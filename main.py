@@ -6,7 +6,6 @@ import os
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext
 from llama_index.core import load_index_from_storage
 from llama_index.llms.openai import OpenAI
-from openai import OpenAI as OpenAIClient
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.core import Settings
 
@@ -19,15 +18,7 @@ Settings.llm = OpenAI(
     api_base="https://api.x.ai/v1",
 )
 
-# Custom embedding class that avoids the proxies bug
-class FixedOpenAIEmbedding(OpenAIEmbedding):
-    def _get_client(self):
-        return OpenAIClient(
-            api_key=self.api_key,
-            base_url=self.api_base,
-        )
-
-Settings.embed_model = FixedOpenAIEmbedding(
+Settings.embed_model = OpenAIEmbedding(
     model="text-embedding-3-small",
     api_key=os.getenv("XAI_API_KEY"),
     api_base="https://api.x.ai/v1",
