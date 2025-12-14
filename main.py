@@ -5,8 +5,9 @@ import os
 
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext
 from llama_index.core import load_index_from_storage
-from llama_index.core.embeddings import Embedding
+from llama_index.core.base.embeddings.base import Embedding
 from llama_index.llms.openai import OpenAI
+from openai import OpenAI as OpenAIClient
 from llama_index.core import Settings
 
 app = FastAPI(title="SpaceX RAG Demo")
