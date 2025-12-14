@@ -5,7 +5,7 @@ requests==2.32.3  # For SpaceX API calls
 llama-index==0.11.16  # Core RAG framework
 
 # Cloud
-llama-index-llms-openai>=0.2.10 # For Grok/OpenAI cloud generation
+llama-index-llms-openai==0.2.10 # For Grok/OpenAI cloud generation
 llama-index-embeddings-openai==0.2.5  # Cloud embeddings (no torch)
 openai==1.40.0 # Pin to Fix embeddings proxy issue
 
