@@ -5,20 +5,41 @@ import os
 
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext
 from llama_index.core import load_index_from_storage
+from llama_index.core.embeddings import Embedding
 from llama_index.llms.openai import OpenAI
-from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.core import Settings
 
 app = FastAPI(title="SpaceX RAG Demo")
 
 # ================== CLOUD CONFIG (Grok API - Vercel / Public Demo) ==================
+# Custom embedding class that directly calls Grok/OpenAI embeddings endpoint
+class GrokEmbedding(Embedding):
+    def __init__(self, api_key: str, api_base: str, model: str = "text-embedding-3-small"):
+        self.api_key = api_key
+        self.api_base = api_base
+        self.model = model
+        self.client = OpenAIClient(api_key=api_key, base_url=api_base)
+
+    def _get_text_embedding(self, text: str):
+        response = self.client.embeddings.create(
+            input=text,
+            model=self.model
+        )
+        return response.data[0].embedding
+
+    def get_text_embedding_batch(self, texts, show_progress=False):
+        return [self._get_text_embedding(text) for text in texts]
+
+    async def aget_text_embedding_batch(self, texts, show_progress=False):
+        return self.get_text_embedding_batch(texts, show_progress)
+
 Settings.llm = OpenAI(
     model="grok-4-1-fast-reasoning",
     api_key=os.getenv("XAI_API_KEY"),
     api_base="https://api.x.ai/v1",
 )
 
-Settings.embed_model = OpenAIEmbedding(
+Settings.embed_model = GrokEmbedding(
     model="text-embedding-3-small",
     api_key=os.getenv("XAI_API_KEY"),
     api_base="https://api.x.ai/v1",

@@ -6,7 +6,6 @@ llama-index==0.11.16  # Core RAG framework
 
 # Cloud
 llama-index-llms-openai==0.2.10
-llama-index-embeddings-openai==0.2.5 # Cloud embeddings (no torch)
 openai==1.51.0
 
 # Local
