@@ -61,37 +61,18 @@ Settings.llm = OpenAI(
     api_base="https://api.x.ai/v1",
 )
 
-# Lazy real Grok embedding
-_embed_model = None
-
-def get_embed_model():
-    global _embed_model
-    if _embed_model is None:
-        _embed_model = GrokEmbedding(
-            api_key=os.getenv("XAI_API_KEY"),
-            api_base="https://api.x.ai/v1",
-            model="text-embedding-3-small"
-        )
-    return _embed_model
-
 # Lazy index
 _index = None
 
+# ================== CLOUD CONFIG  ==================
 def get_index():
-    global _index
-    if _index is None:
-        # Replace dummy with real embed_model
-        Settings.embed_model = get_embed_model()
-
-        index_dir = "./storage"
-        if os.path.exists(index_dir):
-            storage_context = StorageContext.from_defaults(persist_dir=index_dir)
-            _index = load_index_from_storage(storage_context)
-        else:
-            documents = SimpleDirectoryReader("data").load_data()
-            _index = VectorStoreIndex.from_documents(documents)
-            _index.storage_context.persist(persist_dir=index_dir)
-    return _index
+    documents = SimpleDirectoryReader("data").load_data()
+    embed_model = GrokEmbedding(
+        api_key=os.getenv("XAI_API_KEY"),
+        api_base="https://api.x.ai/v1",
+        model="text-embedding-3-small"
+    )
+    return VectorStoreIndex.from_documents(documents, embed_model=embed_model)
 
 # ================== LOCAL CONFIG (Comment in for local / Docker runs) ==================
 # from llama_index.llms.ollama import Ollama
@@ -106,25 +87,25 @@ def get_index():
 # Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 
 # Lazy index - only built when first needed
-_index = None
+# _index = None
 
-def get_index():
-    global _index
-    if _index is None:
-        embed_model = GrokEmbedding(
-            api_key=os.getenv("XAI_API_KEY"),
-            api_base="https://api.x.ai/v1",
-            model="text-embedding-3-small"
-        )
-        index_dir = "./storage"
-        if os.path.exists(index_dir):
-            storage_context = StorageContext.from_defaults(persist_dir=index_dir)
-            _index = load_index_from_storage(storage_context, embed_model=embed_model)
-        else:
-            documents = SimpleDirectoryReader("data").load_data()
-            _index = VectorStoreIndex.from_documents(documents, embed_model=embed_model)
-            _index.storage_context.persist(persist_dir=index_dir)
-    return _index
+# def get_index():
+#     global _index
+#     if _index is None:
+#         embed_model = GrokEmbedding(
+#             api_key=os.getenv("XAI_API_KEY"),
+#             api_base="https://api.x.ai/v1",
+#             model="text-embedding-3-small"
+#         )
+#         index_dir = "./storage"
+#         if os.path.exists(index_dir):
+#             storage_context = StorageContext.from_defaults(persist_dir=index_dir)
+#             _index = load_index_from_storage(storage_context, embed_model=embed_model)
+#         else:
+#             documents = SimpleDirectoryReader("data").load_data()
+#             _index = VectorStoreIndex.from_documents(documents, embed_model=embed_model)
+#             _index.storage_context.persist(persist_dir=index_dir)
+#     return _index
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
