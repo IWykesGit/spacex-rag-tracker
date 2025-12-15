@@ -6,7 +6,8 @@ import os
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext
 from llama_index.core import load_index_from_storage
 from llama_index.core.base.embeddings.base import BaseEmbedding, Embedding
-from llama_index.llms.openai import OpenAI
+from llama_index.core.llms import LLMMetadata
+from llama_index.llms.openai.base import OpenAI as BaseOpenAI
 from openai import OpenAI as OpenAIClient
 from llama_index.core import Settings
 
@@ -55,14 +56,24 @@ class GrokEmbedding(Embedding):
     async def aget_text_embedding_batch(self, texts, show_progress=False):
         return self.get_text_embedding_batch(texts, show_progress)
 
-Settings.llm = OpenAI(
+# Custom Grok LLM — bypasses unknown model lookup
+class GrokLLM(BaseOpenAI):
+    @property
+    def metadata(self):
+        return LLMMetadata(
+            context_window=128000,  # Grok-4 context window
+            num_output=self.max_tokens or 4096,
+            model_name=self.model,
+            is_chat_model=True,
+            is_function_calling_model=True, 
+        )
+
+# Grok API settings (cloud — Vercel)
+Settings.llm = GrokLLM(
     model="grok-4-1-fast-reasoning",
     api_key=os.getenv("XAI_API_KEY"),
     api_base="https://api.x.ai/v1",
-    context_window=128000,  # Grok-4 has 128k context — this bypasses the lookup error
-    is_chat_model=True,
 )
-
 # Lazy index
 _index = None
 
