@@ -59,13 +59,13 @@ This project encountered several real-world AI engineering challenges.. Here's w
   Switched to cloud embeddings/LLM (Grok API) for public deploy - no heavy torch/sentence-transformers wheels. Local version keeps bge-small + Ollama.
 
 - **Vercel read-only filesystem**  
-  Removed persistence (`./storage`) — index rebuilt on cold start (fast for small dataset).
+  Removed persistence (`./storage`) - index rebuilt on cold start (fast for small dataset).
 
 - **Grok API compatibility issues** (unknown model error, proxies bug)  
   Created custom `GrokLLM` and `GrokEmbedding` classes to bypass LlamaIndex's hard-coded OpenAI checks.
 
 - **API key errors during test collection**  
-  Comprehensive mocking of custom classes and lazy getters — tests run with no keys required.
+  Comprehensive mocking of custom classes and lazy getters - tests run with no keys required.
 
 The final app runs locally with Ollama + bge-small, and on Vercel with Grok API - zero cost for demo traffic.
 
