@@ -6,8 +6,6 @@ ENV HF_HUB_OFFLINE=1
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --no-cache-dir pytest-html && pytest --html=/app/report.html --self-contained-html -v --disable-warnings
-
 COPY . .
 
 EXPOSE 8000

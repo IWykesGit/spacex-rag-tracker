@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 import requests
 import os
 
-from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader#, StorageContext # Uncomment for local LLM
 from llama_index.core import load_index_from_storage
 from llama_index.core.base.embeddings.base import BaseEmbedding, Embedding
 from llama_index.core.llms import LLMMetadata
