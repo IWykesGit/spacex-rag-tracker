@@ -40,11 +40,18 @@ Settings.llm = OpenAI(
     api_base="https://api.x.ai/v1",
 )
 
-Settings.embed_model = GrokEmbedding(
-    model="text-embedding-3-small",
-    api_key=os.getenv("XAI_API_KEY"),
-    api_base="https://api.x.ai/v1",
-)
+# Lazy embedding - only created when first accessed
+_embed_model = None
+
+def get_embed_model():
+    global _embed_model
+    if _embed_model is None:
+        _embed_model = GrokEmbedding(
+            api_key=os.getenv("XAI_API_KEY"),
+            api_base="https://api.x.ai/v1",
+            model="text-embedding-3-small"
+        )
+    return _embed_model
 
 # ================== LOCAL CONFIG (Comment in for local / Docker runs) ==================
 # from llama_index.llms.ollama import Ollama
@@ -64,7 +71,12 @@ _index = None
 
 def get_index():
     global _index
+    
     if _index is None:
+      # Ensure embed_model is set before building index
+        if Settings.embed_model is None:
+            Settings.embed_model = get_embed_model()
+            
         index_dir = "./storage"
         if os.path.exists(index_dir):
             storage_context = StorageContext.from_defaults(persist_dir=index_dir)
