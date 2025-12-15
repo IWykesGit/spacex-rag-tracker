@@ -5,7 +5,7 @@ import os
 
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext
 from llama_index.core import load_index_from_storage
-from llama_index.core.base.embeddings.base import Embedding
+from llama_index.core.base.embeddings.base import BaseEmbedding, Embedding
 from llama_index.llms.openai import OpenAI
 from openai import OpenAI as OpenAIClient
 from llama_index.core import Settings
@@ -13,6 +13,27 @@ from llama_index.core import Settings
 app = FastAPI(title="SpaceX RAG Demo")
 
 # ================== CLOUD CONFIG (Grok API - Vercel / Public Demo) ==================
+# Block LlamaIndex's default OpenAI resolution with a dummy
+class DummyEmbedding(BaseEmbedding):
+    def get_text_embedding_batch(self, texts, **kwargs):
+        return [[0.0] * 768 for _ in texts]  # fake 768-dim vectors
+
+    def _get_text_embedding(self, text: str):
+        return [0.0] * 768
+
+    async def aget_text_embedding_batch(self, texts, **kwargs):
+        return self.get_text_embedding_batch(texts)
+
+    # Required abstract methods for query embedding (not used in this RAG, but must be implemented)
+    def _get_query_embedding(self, query: str):
+        return [0.0] * 768
+
+    async def _aget_query_embedding(self, query: str):
+        return [0.0] * 768
+      
+Settings.embed_model = DummyEmbedding()  # prevents internal validation
+
+      
 # Custom embedding class that directly calls Grok/OpenAI embeddings endpoint
 class GrokEmbedding(Embedding):
     def __init__(self, api_key: str, api_base: str, model: str = "text-embedding-3-small"):
@@ -40,7 +61,7 @@ Settings.llm = OpenAI(
     api_base="https://api.x.ai/v1",
 )
 
-# Lazy embedding - only created when first accessed
+# Lazy real Grok embedding
 _embed_model = None
 
 def get_embed_model():
@@ -52,6 +73,25 @@ def get_embed_model():
             model="text-embedding-3-small"
         )
     return _embed_model
+
+# Lazy index
+_index = None
+
+def get_index():
+    global _index
+    if _index is None:
+        # Replace dummy with real embed_model
+        Settings.embed_model = get_embed_model()
+
+        index_dir = "./storage"
+        if os.path.exists(index_dir):
+            storage_context = StorageContext.from_defaults(persist_dir=index_dir)
+            _index = load_index_from_storage(storage_context)
+        else:
+            documents = SimpleDirectoryReader("data").load_data()
+            _index = VectorStoreIndex.from_documents(documents)
+            _index.storage_context.persist(persist_dir=index_dir)
+    return _index
 
 # ================== LOCAL CONFIG (Comment in for local / Docker runs) ==================
 # from llama_index.llms.ollama import Ollama
