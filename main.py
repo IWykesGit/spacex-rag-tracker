@@ -59,6 +59,8 @@ Settings.llm = OpenAI(
     model="grok-4-1-fast-reasoning",
     api_key=os.getenv("XAI_API_KEY"),
     api_base="https://api.x.ai/v1",
+    context_window=128000,  # Grok-4 has 128k context — this bypasses the lookup error
+    is_chat_model=True,
 )
 
 # Lazy index
