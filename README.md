@@ -1,3 +1,5 @@
+![SpaceX RAG Demo on Vercel](vercel-demo-screenshot.png)
+
 # SpaceX RAG Tracker
 
 ![Python](https://img.shields.io/badge/python-3.11-blue)
@@ -8,7 +10,7 @@
 ![RAG](https://img.shields.io/badge/RAG-Local_LLMs-green)
 ![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel)
 
-[![CI](https://github.com/IWykesGit/spacex-rag-tracker/actions/workflows/test.yml/badge.svg)](https://github.com/yourusername/spacex-rag-tracker/actions) 
+[![CI](https://github.com/IWykesGit/spacex-rag-tracker/actions/workflows/test.yml/badge.svg)](https://github.com/IWykesGit/spacex-rag-tracker/actions) 
 
 Live demo: https://spacex-rag-tracker.vercel.app
 
