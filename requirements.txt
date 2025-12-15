@@ -6,7 +6,8 @@ llama-index==0.11.16  # Core RAG framework
 
 # Cloud
 llama-index-llms-openai==0.2.10
-openai==1.40.0
+openai==1.51.0
+httpx==0.27.2
 
 # Local
 # llama-index-llms-ollama==0.3.3  # Ollama integration for local LLM
