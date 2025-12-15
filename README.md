@@ -38,7 +38,7 @@ Open http://localhost:8000
 
 ## Challenges & Fixes
 
-This project hit several real-world hurdles common in AI/RAG apps. Here's what was encountered and how they were solved:
+This project encountered several real-world AI engineering challenges.. Here's what was encountered and how they were solved:
 
 - **Dependency conflicts (pydantic v1 vs v2, torch wheels)**  
   Fixed by pinning compatible versions and slimming requirements.txt for Vercel.
@@ -57,6 +57,15 @@ This project hit several real-world hurdles common in AI/RAG apps. Here's what w
 
 - **Vercel OOM on build**  
   Switched to cloud embeddings/LLM (Grok API) for public deploy - no heavy torch/sentence-transformers wheels. Local version keeps bge-small + Ollama.
+
+- **Vercel read-only filesystem**  
+  Removed persistence (`./storage`) — index rebuilt on cold start (fast for small dataset).
+
+- **Grok API compatibility issues** (unknown model error, proxies bug)  
+  Created custom `GrokLLM` and `GrokEmbedding` classes to bypass LlamaIndex's hard-coded OpenAI checks.
+
+- **API key errors during test collection**  
+  Comprehensive mocking of custom classes and lazy getters — tests run with no keys required.
 
 The final app runs locally with Ollama + bge-small, and on Vercel with Grok API - zero cost for demo traffic.
 
