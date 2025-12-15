@@ -19,10 +19,9 @@ def test_launches_endpoint():
     assert "date_utc" in data
     assert "success" in data
 
-@patch("main.get_embed_model")
-@patch("main.GrokEmbedding") 
-@patch("main.get_index") 
-def test_ask_endpoint(mock_get_index, mock_grok_embedding, mock_get_embed_model):
+@patch("main.GrokEmbedding")
+@patch("main.get_index")
+def test_ask_endpoint(mock_get_index, mock_grok_embedding):
     # Create a fake response object
     mock_response = MagicMock()
     mock_response.response = "Mocked answer: Boostback burn lasted 48 seconds."
@@ -42,12 +41,9 @@ def test_ask_endpoint(mock_get_index, mock_grok_embedding, mock_get_embed_model)
 
     # When get_index() is called, return our fake index object
     mock_get_index.return_value = mock_index_obj
-    
+
     # Mock GrokEmbedding - no client creation
     mock_grok_embedding.return_value = MagicMock()
-    
-    # Mock the lazy embedding getter - return a fake embedding model
-    mock_get_embed_model.return_value = MagicMock()
 
     # Now make the request
     response = client.get("/ask?question=How%20long%20was%20the%20boostback%20burn?")

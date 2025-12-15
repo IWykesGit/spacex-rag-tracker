@@ -65,25 +65,24 @@ def get_embed_model():
 #
 # Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 
-# Build or load the index (looks for ./data folder)
 # Lazy index - only built when first needed
 _index = None
 
 def get_index():
     global _index
-    
     if _index is None:
-      # Ensure embed_model is set before building index
-        if Settings.embed_model is None:
-            Settings.embed_model = get_embed_model()
-            
+        embed_model = GrokEmbedding(
+            api_key=os.getenv("XAI_API_KEY"),
+            api_base="https://api.x.ai/v1",
+            model="text-embedding-3-small"
+        )
         index_dir = "./storage"
         if os.path.exists(index_dir):
             storage_context = StorageContext.from_defaults(persist_dir=index_dir)
-            _index = load_index_from_storage(storage_context)
+            _index = load_index_from_storage(storage_context, embed_model=embed_model)
         else:
             documents = SimpleDirectoryReader("data").load_data()
-            _index = VectorStoreIndex.from_documents(documents)
+            _index = VectorStoreIndex.from_documents(documents, embed_model=embed_model)
             _index.storage_context.persist(persist_dir=index_dir)
     return _index
 
