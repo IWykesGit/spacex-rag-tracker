@@ -132,7 +132,7 @@ async def home():
           <script src="https://cdn.tailwindcss.com"></script>
       </head>
       <body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-8">
-          <div class="max-w-2xl w-full">
+          <div class="max-w-2xl w-full mx-auto px-4">
               <h1 class="text-5xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
                   SpaceX RAG Tracker
               </h1>
