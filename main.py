@@ -141,7 +141,7 @@ async def home():
               </p>
 
               <form id="ragForm" class="mb-8">
-                  <div class="flex gap-4">
+                  <div class="flex flex-col sm:flex-row gap-4">
                       <input 
                           type="text" 
                           id="question" 
